@@ -1,26 +1,25 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
-import 'dotenv/config'
-
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { publicKey } = req.query;
-    const API_KEY = process.env.HELIUS_API;
+    const { programId } = req.query;
 
-
-    if (!publicKey || typeof publicKey !== 'string') {
-        return res.status(400).json({ error: 'Public key is required and must be a string' });
+    if (!programId || typeof programId !== 'string') {
+        return res.status(400).json({ error: 'Program ID is required and must be a string' });
     }
 
     try {
         const response = await axios.post('https://devnet.helius-rpc.com', {
             jsonrpc: "2.0",
             id: 1,
-            method: "getBalance",
-            params: [publicKey]
+            method: "getProgramAccounts",
+            params: [
+                programId,
+                { encoding: "jsonParsed" }
+            ]
         }, {
             headers: {
-                'Authorization': `Bearer ${process.env.API_KEY}`
+                'Authorization': `Bearer ${process.env.HELIUS_API_KEY}`
             }
         });
         res.status(200).json(response.data);

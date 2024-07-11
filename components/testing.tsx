@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useState } from 'react';
 import axios from 'axios';
@@ -27,23 +27,22 @@ const Dashboard: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className='w-full h-full'>
             <h1>Helius RPC Dashboard</h1>
 
-            <div className=''>
+            <div>
+                <button onClick={() => handleFetch('getRecentBlockhash', '')} className='py-2 px-4 bg-green-400 text-sm m-2 hover:bg-green-500'>Get Recent Blockhash</button>
+            </div>
+            <div className='flex justify-start items-start p-4'>
                 <input
                     type="text"
                     value={publicKey}
                     onChange={(e) => setPublicKey(e.target.value)}
                     placeholder="Enter public address"
-                    className=''
+                    className='border border-slate-500 w-[400px] rounded-lg mx-4 p-2'
                 />
-                <button onClick={() => handleFetch('getAccountInfo', `publicKey=${publicKey}`)}>Get Account Info</button>
-                <button onClick={() => handleFetch('getBalance', `publicKey=${publicKey}`)}>Get Balance</button>
-            </div>
-
-            <div>
-                <button onClick={() => handleFetch('getRecentBlockhash', '')}>Get Recent Blockhash</button>
+                <button onClick={() => handleFetch('getAccountInfo', `publicKey=${publicKey}`)} className='py-2 px-4 bg-blue-400 text-sm m-2 hover:bg-blue-500'>Get Account Info</button>
+                <button onClick={() => handleFetch('getBalance', `publicKey=${publicKey}`)} className='py-2 px-4 bg-blue-400 text-sm m-2 hover:bg-blue-500'>Get Balance</button>
             </div>
 
             <div>
@@ -52,8 +51,9 @@ const Dashboard: React.FC = () => {
                     value={signature}
                     onChange={(e) => setSignature(e.target.value)}
                     placeholder="Enter transaction signature"
+                    className='border border-slate-500 w-[400px] rounded-lg mx-4 p-2'
                 />
-                <button onClick={() => handleFetch('getConfirmedTransaction', `signature=${signature}`)}>Get Confirmed Transaction</button>
+                <button onClick={() => handleFetch('getConfirmedTransaction', `signature=${signature}`)} className='py-2 px-4 bg-blue-400 text-sm m-2 hover:bg-blue-500'>Get Confirmed Transaction</button>
             </div>
 
             <div>
@@ -62,8 +62,9 @@ const Dashboard: React.FC = () => {
                     value={programId}
                     onChange={(e) => setProgramId(e.target.value)}
                     placeholder="Enter program ID"
+                    className='border border-slate-500 w-[400px] rounded-lg mx-4 p-2'
                 />
-                <button onClick={() => handleFetch('getProgramAccounts', `programId=${programId}`)}>Get Program Accounts</button>
+                <button onClick={() => handleFetch('getProgramAccounts', `programId=${programId}`)} className='py-2 px-4 bg-blue-400 text-sm m-2 hover:bg-blue-500'>Get Program Accounts</button>
             </div>
 
             {loading && <div>Loading...</div>}
